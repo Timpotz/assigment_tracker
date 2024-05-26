@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid ">
+    <div class="row">
+    {% include "sidebar.html" %}
+        <div class="col-10">
+            <h1 class="mt-5">{{ class_.name }}</h1>
+            <div class="table-responsive">
+                 <table class="table table-bordered border-primary">
+                  <thead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      {% for i in range(max_urls_per_student) %}
+                          <th scope="col">Assignment {{ i+1 }}</th>
+                      {% endfor %}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for student in students %}
+                        <tr>
+                            <td>{{ student.name }}</td>
+                            {% for i in range(max_urls_per_student) %}
+                                <td class="text-truncate" style="max-width: 200px;">
+                                    {% if i < student.urls|length %}
+                                        <a href="{{ student.urls[i] }}" class="text-truncate" target="_blank" >{{ student.urls[i] }}</a>
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

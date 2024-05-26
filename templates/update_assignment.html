@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    {% include "sidebar.html" %}
+    <div class="col-10">
+        <h1>Update Assignment</h1>
+        <form method="post">
+            {% from 'bootstrap5/form.html' import render_field %}
+            {{ form.csrf_token() }}
+            {{ render_field(form.url) }}
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

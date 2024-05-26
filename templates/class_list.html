@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        {% include "sidebar.html" %}
+        <div class="col-10">
+            <h1 class="mt-5">Class List</h1>
+             {% if is_admin %}
+            <a href="{{ url_for('add_class') }}" class="btn btn-primary d-inline-flex align-items-center rounded border-0 p-2 mb-3">Add a class</a>
+                <table class="table table-bordered border-primary">
+                    <thead>
+                        <tr>
+                            <th scope="col">Class</th>
+                            <th scope="col">Class ID</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for class in classes %}
+                        <tr>
+                            <td><a href="{{ url_for('class_details', class_id=class.id) }}">{{ class.name }}</a></td>
+                            <td>{{ class.id }}</td>
+                            <td>
+                                <form action="{{ url_for('delete_class', class_id=class.id) }}" method="post" style="display: inline-block;" onsubmit="return confirmDelete();">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <table class="table table-bordered border-primary">
+                    <thead>
+                        <tr>
+                            <th scope="col">Class</th>
+                            <th scope="col">Class ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for class in classes %}
+                        <tr>
+                            <td>{{ class.name }}</td>
+                            <td>{{ class.id }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+      <div class="d-flex justify-content-center mt-3">
+          {% for category, message in messages %}
+              <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} text-center">
+                  {{ message }}
+              </div>
+          {% endfor %}
+      </div>
+  {% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+function confirmDelete() {
+    return confirm('Are you sure you want to delete this class?');
+}
+</script>
+{% endblock %}

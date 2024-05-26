@@ -1,0 +1,27 @@
+<div class="col-2">
+      <div class="flex-shrink-0 p-3" style="width: 280px;">
+          <ul class="list-unstyled ps-0">
+            <li class="mb-1">
+              <a href="{{ url_for('home') }}" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed">Home</a>
+            </li>
+            <li class="mb-1">
+                <a href="{{ url_for('classes') }}" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed">Class List</a>
+              <div class="collapse" id="dashboard-collapse" style="">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                  <li><a href="{{ url_for('add_class') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add a class</a></li>
+                </ul>
+              </div>
+            </li>
+            {% if is_authenticated %}
+            <li class="mb-1">
+              <a href="{{ url_for('my_assignments') }}" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed">My Assignments</a>
+            </li>
+            {% endif %}
+            {% if is_authenticated %}
+            <li class="mb-1">
+              <a href="{{ url_for('submit_assignment') }}" class="btn btn-dark d-inline-flex align-items-center rounded border-0 p-2  ">Submit Assignment</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+    </div>

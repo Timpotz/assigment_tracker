@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+    {% include "sidebar.html" %}
+    <div class="col-10">
+        <h2>Assignment Uploads</h2>
+        <p class="lead">This is a place for you to upload your assignments.</p>
+        <ul>
+            <li>To Submit assignment, you must first login / register </li>
+            <li>Make sure you uploaded your assignment to google drive and have the correct link to the assignment</li>
+            <li>Before uploading your assignment make sure you have the right ID of the class you want to upload to. Click on the class button and you will see the class id</li>
+            <li>Click on the Submit Assignment button to submit your assignment</li>
+            <li>Register with your official name and credentials</li>
+        </ul>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
