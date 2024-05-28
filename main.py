@@ -20,7 +20,7 @@ db = SQLAlchemy(model_class=Base)
 load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv('DB_URI')
 db.init_app(app)
 Bootstrap5(app)
 login_manager= LoginManager()
