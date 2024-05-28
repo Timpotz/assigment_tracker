@@ -4,4 +4,4 @@ populateDB.py
 .idea
 __pycache__
 .env
-
+migrations

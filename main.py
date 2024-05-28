@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import Flask, render_template, redirect, url_for, flash, session, abort
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, BigInteger
 from sqlalchemy.orm import DeclarativeBase
 from flask_bootstrap import Bootstrap5
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 import os
 from forms import RegisterForm, AddClass, SubmitAssignment, LoginForm
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user, logout_user
+from flask_migrate import Migrate
 
 
 ## DB CONFIG
@@ -18,23 +19,26 @@ class Base(DeclarativeBase):
 db = SQLAlchemy(model_class=Base)
 ## DB CONFIG
 load_dotenv()
+database_URI=os.getenv('DB_URI')
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv('DB_URI')
+app.config["SQLALCHEMY_DATABASE_URI"] = database_URI
 db.init_app(app)
 Bootstrap5(app)
 login_manager= LoginManager()
 login_manager.init_app(app)
 
-# Initialize Flask-Bootstrap
+# Initialize Flask-Migrate
+#migrate = Migrate(app, db)
 
 
 class User(UserMixin,db.Model):
+    __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
-    name = Column(String(100), nullable=False)
-    ktp= Column(Integer, unique=True,nullable=False)
+    name = Column(String(255), nullable=False)
+    ktp = Column(BigInteger, unique=True, nullable=False)
     email = Column(String(100), unique=True, nullable=False)
-    password = Column(String(100), nullable=False)
+    password = Column(String(255), nullable=False)
     # Add more fields as needed
 
 class Class(db.Model):
@@ -234,6 +238,12 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+# def drop_tables():
+#     # Drop specific tables
+#     with app.app_context():
+#         db.drop_all()
+#     print('Tables dropped successfully')
 
 if __name__ == '__main__':
     app.run(debug=True)
+
