@@ -6,7 +6,8 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import DeclarativeBase
 from flask_bootstrap import Bootstrap5
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from dotenv import load_dotenv
+import os
 from forms import RegisterForm, AddClass, SubmitAssignment, LoginForm
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user, logout_user
 
@@ -19,7 +20,7 @@ db = SQLAlchemy(model_class=Base)
 ## DB CONFIG
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "@Timpot187040590"
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 db.init_app(app)
 Bootstrap5(app)
