@@ -1,0 +1,5 @@
+- Tracks students uploaded assignments
+- Fully functional user management system
+- Student can upload, modify, and delete their assignments
+- Admin can access their users assignment via google drive links uploaded
+- Admin dont have to fill their email with students assignments and use up all their google drive space
