@@ -1,5 +1,4 @@
 from functools import wraps
-
 from flask import Flask, render_template, redirect, url_for, flash, session, abort
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String
@@ -18,7 +17,7 @@ class Base(DeclarativeBase):
 
 db = SQLAlchemy(model_class=Base)
 ## DB CONFIG
-
+load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
